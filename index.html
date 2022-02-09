@@ -25,7 +25,7 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="content-container">
+        <div id="content-container" style="margin: auto; width: 30%;">
             <h1>Vysvědčení</h1>
             <form>
                 <div class="form-group">
@@ -37,7 +37,53 @@
             <br>
             <!-- <h2 id="geo-output">Output:</h2> -->
             <div id="output-container" style="visibility: hidden;">
-                <p id="test"></p>
+                <h2 style="font-size: 80px;">Vysvědčení</h2>
+                <div style="font-size: 20px;">
+                    <span>Jméno: </span><span id="nickname"></span>
+                    <span style="margin-left: 20px;">Obor: Geochaning</span>
+                    <p>Specializace (kód): GC9M732</p>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <th scope="col">Předmět</th>
+                        <th scope="col">Známka</th>
+                        <th scope="col">Odůvodnění</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Různorodost</th>
+                            <td class="d5">D5</td>
+                            <td id="row0"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Typologie</th>
+                            <td class="d5">D5</td>
+                            <td id="row1"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Vlastiznalství</th>
+                            <td class="d5">D5</td>
+                            <td id="row2"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Světoběžnictví</th>
+                            <td class="d5">D5</td>
+                            <td id="row3"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Všestrannost</th>
+                            <td class="d5">D5</td>
+                            <td id="row4"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Lezectví</th>
+                            <td class="d5">T5</td>
+                            <td id="row5">vylezl na strom (pokud je zapsán v logbooku)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span>Vydali VeselíMimoni, v Praze, dne </span><span id="date"></span>
             </div>
         </div>
         
@@ -51,85 +97,177 @@
             document.getElementById("geo-submit").onclick = function () {
                 let container = document.getElementById("output-container");
                 container.style.visibility = "visible";
-                let phase_count = 0;
-                let cz_count = 0;
-                let five_five_count_ruz_2 = 0;
-                let lowest_find_ruz_1 = 0;
-
-                
 
                 input_str = document.getElementById("geo-input").value;
-                let input_by_lines = input_str.split("\n");
-                console.log(input_by_lines);
-
-                let nickname_regex = /^\[([\w]+)/;
-                let nickname_match = nickname_regex.exec(input_by_lines[0]);
-                const nickname = nickname_match[1];
-                console.log(nickname);
-
-                input_by_lines.splice(0, 1);
-                console.log(input_by_lines);
-
-                // find if this line has cache number information
-                // let user_line_regex = /^User has /;
-                // let user_match_result = user_line_regex.test(input_by_lines[3]);
-                // console.log(user_match_result);
-
-                // let get_value_regex = /^User has ([0-9]+)/;
-                // let value_match = get_value_regex.exec(input_by_lines[2]);
-                // console.log(value_match);
-
-
-                let test_count = 0;
-                let size_count = 0;
-                input_by_lines.forEach((value, index) => {
-                    let get_value_regex = /^User has ([0-9]+)/;
-
-                    if (value === "}") {
-                        phase_count++;
-
-                    } else if (phase_count === 0) {
-                        let value_match = get_value_regex.exec(value);
-                        let int_value = 0;
-                        console.log(value_match);
-
-                        if (value_match !== null) {
-                            int_value = parseInt(value_match[1]);
-                            if (int_value >= 55) five_five_count_ruz_2++;
-                            if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
-
-                            if (int_value >= 55) test_count += int_value;
-                            console.log(five_five_count_ruz_2);
-                            console.log(test_count);
-                        }
-                        
-                    } else if (phase_count === 1) {
-                            let value_match = get_value_regex.exec(value);
-                        if (value_match !== null) {
-                            let int_value = parseInt(value_match[1]);
-                            size_count += int_value;
-                            console.log(size_count);
-                        }
-                    }
-                });
-                console.log("type");
-                console.log(test_count);
-                console.log("size");
-                console.log(size_count);
-
-                input_str = input_str.replace(/\n\r?/g, '<br />');
 
                 const row_text_array = [
-                    ["našel alespoň 55 keší pro ", " druhů keší"],
+                    ["našel alespoň ",  " keší pro ", " druhů keší"],
                     ["našel alespoň ", " keší ve všech velikostech"],
                     ["našel alespoň ", " druhů keší v každém kraji"],
                     ["našel alespoň 5 druhů keší v ", " státech"],
                     ["poskládal ", " krát matrix"]
                 ];
-                const positions_array = [7, 15, 26, 44, 51];
 
                 if (input_str !== "") {
-                   document.getElementById("test").innerHTML = input_str;
+                    const date = new Date();
+
+                    const month_index = date.getMonth();
+                    const month_name = month_names_array[month_index];
+                    const year = date.getFullYear();
+                    const day = date.getDate();
+
+                    let phase_count = 0;
+                    let cz_count = 0;
+                    let country_count = 0;
+                    let five_five_count_typ_1 = 0;
+                    let lowest_find_ruz_1 = 0;
+                    let five_five_count_ruz_2 = 0;
+                    let matrix_count = 0;
+                                                           
+                    let get_user_value_regex = /^User has ([0-9]+)/;
+                    let get_country_types_value_regex = /types \(([0-9]+)\)$/;
+                    let get_matrix_value_regex = /([0-9]+) needed$/;
+                    let get_nickname_regex = /^\[([\w]+)/;
+
+                    let input_by_lines = input_str.split("\n");
+
+                    let nickname_match = get_nickname_regex.exec(input_by_lines[0]);
+                    const nickname = nickname_match[1];
+
+                    document.getElementById("date").innerHTML = day + "." + month_name + "." + year;
+
+                    document.getElementById("nickname").innerHTML = nickname;
+
+                    input_by_lines.forEach((value, index) => {
+
+                        if (value === "}") {
+                            phase_count++;
+                            // console.log(phase_count);
+
+                        } else if (phase_count === 0) {
+                            let value_match = get_user_value_regex.exec(value);
+                            let int_value = 0;
+                            // console.log(value_match);
+
+                            if (value_match !== null) {
+                                int_value = parseInt(value_match[1]);
+                                if (int_value >= 55) five_five_count_typ_1++;
+                                // if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
+
+                                // if (int_value >= 55) test_count += int_value;
+                                // console.log(five_five_count_typ_1);
+                                // console.log(test_count);
+                            }
+                            
+                        } else if (phase_count === 1) {
+                                let value_match = get_user_value_regex.exec(value);
+                                let int_value = 0;
+                            if (value_match !== null) {
+                                int_value = parseInt(value_match[1]);
+                                if (int_value >= 55) five_five_count_ruz_2++;
+                                if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
+
+                                // size_count += int_value;
+                                
+                            }
+                        } else if (phase_count === 2) {
+                            let value_match = get_country_types_value_regex.exec(value);
+
+                            if (value_match !== null) {
+                                cz_count = parseInt(value_match[1]);
+                                phase_count++;
+                            }
+                        } else if (phase_count === 3) {
+                            let value_match = get_country_types_value_regex.exec(value);
+
+                            if (value_match !== null) {
+                                country_count = parseInt(value_match[1]);
+                                phase_count++;
+                            }
+                        } else {
+                            let value_match = get_matrix_value_regex.exec(value);
+
+                            if (value_match !== null) {
+                                matrix_count = parseInt(value_match[1]);
+                                phase_count++;
+                            }
+                        }
+                    });
+                    // console.log(cz_count);
+                    // console.log(country_count);
+                    // console.log(matrix_count);
+                    // positions_array.forEach(iterate_positions);
+                    // function iterate_positions(position, index, positions_array) {
+                    //     // console.log(position + ": " + index);
+                    //     const row_text = row_text_array[index];
+                    //     const row_data = input_array[position];
+                    //     const row_data_int = parseInt(row_data);
+                    //     const row_id = "row" + index.toString();
+
+                    //     if (row_data_int < 5) {
+                    //         let full_row = document.getElementById(row_id).parentElement;
+                    //         full_row.classList.add("bg-danger");
+                    //     }
+
+                    //     document.getElementById(row_id).innerHTML = row_text[0] + row_data + row_text[1];
+                    // }
+
+                    document.getElementById("row0").innerHTML = row_text_array[0][0] 
+                                                                + lowest_find_ruz_1 
+                                                                + row_text_array[0][1] 
+                                                                + five_five_count_ruz_2 
+                                                                + row_text_array[0][2];
+                    
+                    document.getElementById("row1").innerHTML = row_text_array[1][0] + five_five_count_typ_1 + row_text_array[1][1];
+                    document.getElementById("row2").innerHTML = row_text_array[2][0] + cz_count + row_text_array[2][1]; 
+                    document.getElementById("row3").innerHTML = row_text_array[3][0] + country_count + row_text_array[3][1]; 
+                    document.getElementById("row4").innerHTML = row_text_array[4][0] + matrix_count + row_text_array[4][1];
+
+                    document.getElementById("row5").innerHTML = "vylezl na strom (pokud je zapsán v logbooku)";
+
+                    // output_test = JSON.stringify(input_array);
+                    // console.log(output_test);
+                    // document.getElementById("geo-output").innerHTML = input_str;
+                    // html2canvas(container, {
+                    //     onrendered: function (canvas) {
+                    //         let a = document.createElement('a');
+                    //         a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                    //         // a.href = URL.createObjectURL(canvas);
+                    //         a.download = "vysvedceni.png";
+
+                    //         document.body.appendChild(a)
+                    //         a.click();
+                    //         document.body.removeChild(a);
+                    //     }
+                    // });
+                    html2canvas(container).then(function (canvas) {
+                            saveAs(canvas.toDataURL(), "vysvedceni.png");
+                    });
+
+                    function saveAs(uri, filename) {
+
+                        var link = document.createElement('a');
+
+                        if (typeof link.download === 'string') {
+
+                            link.href = uri;
+                            link.download = filename;
+
+                            //Firefox requires the link to be in the body
+                            document.body.appendChild(link);
+
+                            //simulate click
+                            link.click();
+
+                            //remove the link when done
+                            document.body.removeChild(link);
+
+                        } else {
+
+                            window.open(uri);
+
+                        };
+                    };
                 };
             };
         </script>

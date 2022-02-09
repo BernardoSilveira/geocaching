@@ -19,6 +19,10 @@
                 text-align: center;
                 width: 40px;
             }
+
+            html * {
+            font-family: Book Antiqua;
+            }
         </style>
     </head>
     <body>
@@ -29,19 +33,21 @@
             <h1>Vysvědčení</h1>
             <form>
                 <div class="form-group">
-                    <label for="geo-input">Input:</label>
-                    <textarea name="Input" id="geo-input" class="form-control" cols="30" rows="10">Paste your text here...</textarea>
+                    <label for="geo-input">Paste your input here:</label>
+                    <textarea name="Input" id="geo-input" class="form-control" cols="30" rows="10"></textarea>
                 </div>
                 <button type="button" id="geo-submit" class="btn btn-primary">Submit</button>
             </form>
             <br>
             <!-- <h2 id="geo-output">Output:</h2> -->
             <div id="output-container" style="visibility: hidden;">
-                <h2 style="font-size: 80px;">Vysvědčení</h2>
-                <div style="font-size: 20px;">
-                    <span>Jméno: </span><span id="nickname"></span>
-                    <span style="margin-left: 20px;">Obor: Geochaning</span>
-                    <p>Specializace (kód): GC9M732</p>
+                <div style="margin: auto; width: 75%;">
+                    <h2 style="font-size: 80px;">Vysvědčení</h2>
+                    <div style="font-size: 20px; margin: auto; width: 75%;">
+                        <span>Jméno: </span><span id="nickname"></span>
+                        <span style="margin-left: 20px;">Obor: Geochaning</span>
+                        <p>Specializace (kód): GC9M732</p>
+                    </div>
                 </div>
 
                 <table class="table table-bordered">
@@ -83,7 +89,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <span>Vydali VeselíMimoni, v Praze, dne </span><span id="date"></span>
+                <div style="margin: auto; width: 60%;"><span >Vydali VeselíMimoni, v Praze, dne </span><span id="date"></span></div>
             </div>
         </div>
         
@@ -119,14 +125,15 @@
                     let phase_count = 0;
                     let cz_count = 0;
                     let country_count = 0;
-                    let five_five_count_typ_1 = 0;
+                    let lowest_find_typ_1 = 0;
                     let lowest_find_ruz_1 = 0;
                     let five_five_count_ruz_2 = 0;
                     let matrix_count = 0;
                                                            
                     let get_user_value_regex = /^User has ([0-9]+)/;
-                    let get_country_types_value_regex = /types \(([0-9]+)\)$/;
-                    let get_matrix_value_regex = /([0-9]+) needed$/;
+                    let get_country_types_value_regex = /([0-9]+) countries/;
+                    let get_cz_caches_value_regex = /caches \(([0-9]+)\)/
+                    let get_matrix_value_regex = /ok:([0-9]+)/;
                     let get_nickname_regex = /^\[([\w]+)/;
 
                     let input_by_lines = input_str.split("\n");
@@ -151,27 +158,33 @@
 
                             if (value_match !== null) {
                                 int_value = parseInt(value_match[1]);
-                                if (int_value >= 55) five_five_count_typ_1++;
+                                // console.log(int_value);
+                                if (int_value >= 55) {
+                                    five_five_count_ruz_2++;
+                                    if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
+                                }
+                                // size_count += int_value;
+                            }
+                            
+                        } else if (phase_count === 1) {
+                            let value_match = get_user_value_regex.exec(value);
+                            let int_value = 0;
+                            // console.log(value_match);
+
+                            if (value_match !== null) {
+                                int_value = parseInt(value_match[1]);
+                                if (int_value >= 55) {
+                                    if (lowest_find_typ_1 === 0 || (int_value < lowest_find_typ_1) ) lowest_find_typ_1 = int_value;
+                                }
                                 // if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
 
                                 // if (int_value >= 55) test_count += int_value;
                                 // console.log(five_five_count_typ_1);
                                 // console.log(test_count);
                             }
-                            
-                        } else if (phase_count === 1) {
-                                let value_match = get_user_value_regex.exec(value);
-                                let int_value = 0;
-                            if (value_match !== null) {
-                                int_value = parseInt(value_match[1]);
-                                if (int_value >= 55) five_five_count_ruz_2++;
-                                if (lowest_find_ruz_1 === 0 || (int_value < lowest_find_ruz_1) ) lowest_find_ruz_1 = int_value;
 
-                                // size_count += int_value;
-                                
-                            }
                         } else if (phase_count === 2) {
-                            let value_match = get_country_types_value_regex.exec(value);
+                            let value_match = get_cz_caches_value_regex.exec(value);
 
                             if (value_match !== null) {
                                 cz_count = parseInt(value_match[1]);
@@ -218,7 +231,7 @@
                                                                 + five_five_count_ruz_2 
                                                                 + row_text_array[0][2];
                     
-                    document.getElementById("row1").innerHTML = row_text_array[1][0] + five_five_count_typ_1 + row_text_array[1][1];
+                    document.getElementById("row1").innerHTML = row_text_array[1][0] + lowest_find_typ_1 + row_text_array[1][1];
                     document.getElementById("row2").innerHTML = row_text_array[2][0] + cz_count + row_text_array[2][1]; 
                     document.getElementById("row3").innerHTML = row_text_array[3][0] + country_count + row_text_array[3][1]; 
                     document.getElementById("row4").innerHTML = row_text_array[4][0] + matrix_count + row_text_array[4][1];

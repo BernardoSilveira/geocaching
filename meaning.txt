@@ -1,0 +1,5 @@
+Různorodost - second part - lowest number over 55 - number of lines over 55- našel alespoň X keší pro X druhů keší
+Typologie - first part - number of lines over 55 - našel alespoň X keší ve všech velikostech
+Vlastiznalství - third part - required number of types - našel alespoň X druhů keší v každém kraji
+Světoběžnictví - third part - required number of types - našel alespoň 5 druhů keší v 7 státech
+Všestrannost - last line - needed loops - poskládal 5 krát matrix

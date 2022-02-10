@@ -21,7 +21,11 @@
             }
 
             body {
-            font-family: Book Antiqua;
+                font-family: Book Antiqua;
+            }
+
+            .italics {
+                font-style: italic;
             }
         </style>
     </head>
@@ -107,11 +111,11 @@
                 input_str = document.getElementById("geo-input").value;
 
                 const row_text_array = [
-                    ["našel ",  " a více keší od ", " druhů (požadováno je minimálně 55 keší od 5 druhů)"],
-                    ["našel ", " a více keší od každé velikosti (požadováno je minimálně 55 keší od každé velikosti)"],
-                    ["našel alespoň ", " druhů keší v každém kraji (požadováno je minimálně 5 druhů v každém kraji)"],
-                    ["našel alespoň 5 druhů keší v ", " státech (požadováno je minimálně 5 druhů v minimálně 5 státech)"],
-                    ["poskládal ", " krát matrix (požadováno je mít minimálně 5x matrix)"]
+                    ["našel ",  " a více keší od ", ' druhů <p class="italics">(požadováno je minimálně 55 keší od 5 druhů)</p>'],
+                    ["našel ", ' a více keší od každé velikosti <p class="italics">(požadováno je minimálně 55 keší od každé velikosti)'],
+                    ["našel alespoň ", ' druhů keší v každém kraji <p class="italics">(požadováno je minimálně 5 druhů v každém kraji)'],
+                    ["našel alespoň 5 druhů keší v ", ' státech <p class="italics">(požadováno je minimálně 5 druhů v minimálně 5 státech)'],
+                    ["poskládal ", ' krát matrix <p class="italics">(požadováno je mít minimálně 5x matrix)']
                 ];
 
                 if (input_str !== "") {

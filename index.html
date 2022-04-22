@@ -24,8 +24,14 @@
                 font-family: Book Antiqua;
             }
 
-            .italics {
-                font-style: italic;
+            thead {
+                border-bottom-width: 2px;
+            }
+            tbody tr th p {
+                margin-top: 10px;
+            }
+            tbody tr td p {
+                margin-top: 10px;
             }
         </style>
     </head>
@@ -33,7 +39,7 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="content-container" style="margin: auto; width: 700px;">
+        <div id="content-container" style="margin: auto; width: 600px;">
             <h1>Vysvědčení</h1>
             <form>
                 <div class="form-group">
@@ -45,16 +51,16 @@
             <br>
             <!-- <h2 id="geo-output">Output:</h2> -->
             <div id="output-container" style="visibility: hidden;">
-                <div style="margin: auto; width: 65%;">
+                <div style="margin: auto; width: 75%;">
                     <h2 style="font-size: 80px;">Vysvědčení</h2>
-                    <div style="font-size: 20px; margin: auto; width: 75%;">
+                    <div style="font-size: 20px; margin: auto; width: 90%;">
                         <span>Jméno: </span><span id="nickname"></span>
                         <span style="margin-left: 20px;">Obor: Geochaning</span>
-                        <p>Specializace (kód): GC9M732</p>
+                        <p>Specializace (kód): GC9N2GN</p>
                     </div>
                 </div>
 
-                <table class="table table-bordered">
+                <table class="table table-bordered" >
                     <thead>
                         <th scope="col">Předmět</th>
                         <th scope="col">Známka</th>
@@ -62,34 +68,34 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Různorodost</th>
-                            <td class="d5">D5</td>
+                            <th scope="row"><p>Různorodost</p></th>
+                            <td class="d5"><p>D5</p></td>
                             <td id="row0"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Typologie</th>
-                            <td class="d5">D5</td>
+                            <th scope="row"><p style="margin-top: 20px;">Typologie</p></th>
+                            <td class="d5"><p style="margin-top: 20px;">D5</p></td>
                             <td id="row1"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Vlastiznalství</th>
-                            <td class="d5">D5</td>
+                            <th scope="row"><p>Vlastiznalství</p></th>
+                            <td class="d5"><p >D5</p></td>
                             <td id="row2"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Světoběžnictví</th>
-                            <td class="d5">D5</td>
+                            <th scope="row"><p style="margin-top: 20px;">Světoběžnictví</p></th>
+                            <td class="d5"><p style="margin-top: 20px;">D5</p></td>
                             <td id="row3"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Všestrannost</th>
-                            <td class="d5">D5</td>
+                            <th scope="row"><p>Všestrannost</p></th>
+                            <td class="d5"><p>D5</p></td>
                             <td id="row4"></td>
                         </tr>
                         <tr>
-                            <th scope="row">Lezectví</th>
-                            <td class="d5">T5</td>
-                            <td id="row5">vylezl na strom (pokud je zapsán v logbooku)</td>
+                            <th scope="row"><p>Lezectví</p></th>
+                            <td class="d5"><p>T5</p></td>
+                            <td id="row5">vylezl na strom <br>(pokud je zapsán v logbooku)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -111,11 +117,11 @@
                 input_str = document.getElementById("geo-input").value;
 
                 const row_text_array = [
-                    ["našel ",  " a více keší od ", ' druhů <p class="italics">(požadováno je minimálně 55 keší od 5 druhů)</p>'],
-                    ["našel ", ' a více keší od každé velikosti <p class="italics">(požadováno je minimálně 55 keší od každé velikosti)'],
-                    ["našel alespoň ", ' druhů keší v každém kraji <p class="italics">(požadováno je minimálně 5 druhů v každém kraji)'],
-                    ["našel alespoň 5 druhů keší v ", ' státech <p class="italics">(požadováno je minimálně 5 druhů v minimálně 5 státech)'],
-                    ["poskládal ", ' krát matrix <p class="italics">(požadováno je mít minimálně 5x matrix)']
+                    ["našel ",  " a více keší od ", " druhů <br>(požadováno je minimálně 55 keší od 5 druhů)"],
+                    ["našel ", " a více keší od každé velikosti <br>(požadováno je minimálně 55 keší od každé velikosti)"],
+                    ["našel alespoň ", " druhů keší v každém kraji <br>(požadováno je minimálně 5 druhů v každém kraji)"],
+                    ["našel alespoň 5 druhů keší v ", " státech <br>(požadováno je minimálně 5 druhů v minimálně 5 státech)"],
+                    ["poskládal ", " krát matrix <br>(požadováno je mít minimálně 5x matrix)"]
                 ];
 
                 if (input_str !== "") {
@@ -240,7 +246,7 @@
                     document.getElementById("row3").innerHTML = row_text_array[3][0] + country_count + row_text_array[3][1]; 
                     document.getElementById("row4").innerHTML = row_text_array[4][0] + matrix_count + row_text_array[4][1];
 
-                    document.getElementById("row5").innerHTML = "Vylezl na strom (pokud je zapsán v logbooku)";
+                    document.getElementById("row5").innerHTML = "Vylezl na strom <br>(pokud je zapsán v logbooku)";
 
                     // output_test = JSON.stringify(input_array);
                     // console.log(output_test);

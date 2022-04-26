@@ -127,7 +127,7 @@
                 if (input_str !== "") {
                     const date = new Date();
 
-                    const month_index = date.getMonth();
+                    const month_index = date.getMonth() + 1;
                     const month_name = month_names_array[month_index];
                     const year = date.getFullYear();
                     const day = date.getDate();
@@ -216,24 +216,6 @@
                             }
                         }
                     });
-                    // console.log(cz_count);
-                    // console.log(country_count);
-                    // console.log(matrix_count);
-                    // positions_array.forEach(iterate_positions);
-                    // function iterate_positions(position, index, positions_array) {
-                    //     // console.log(position + ": " + index);
-                    //     const row_text = row_text_array[index];
-                    //     const row_data = input_array[position];
-                    //     const row_data_int = parseInt(row_data);
-                    //     const row_id = "row" + index.toString();
-
-                    //     if (row_data_int < 5) {
-                    //         let full_row = document.getElementById(row_id).parentElement;
-                    //         full_row.classList.add("bg-danger");
-                    //     }
-
-                    //     document.getElementById(row_id).innerHTML = row_text[0] + row_data + row_text[1];
-                    // }
 
                     document.getElementById("row0").innerHTML = row_text_array[0][0] 
                                                                 + lowest_find_ruz_1 
@@ -248,23 +230,19 @@
 
                     document.getElementById("row5").innerHTML = "Vylezl na strom <br>(pokud je zapsán v logbooku)";
 
-                    // output_test = JSON.stringify(input_array);
-                    // console.log(output_test);
-                    // document.getElementById("geo-output").innerHTML = input_str;
-                    // html2canvas(container, {
-                    //     onrendered: function (canvas) {
-                    //         let a = document.createElement('a');
-                    //         a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-                    //         // a.href = URL.createObjectURL(canvas);
-                    //         a.download = "vysvedceni.png";
+                    let formated_day = day.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    })
 
-                    //         document.body.appendChild(a)
-                    //         a.click();
-                    //         document.body.removeChild(a);
-                    //     }
-                    // });
+                    let formated_month = month_index.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    })
+
+                    let filename_str  = "GC9N2GN Vysvedceni pro " + nickname + " ze dne " + year + formated_month + formated_day 
                     html2canvas(container).then(function (canvas) {
-                            saveAs(canvas.toDataURL(), "vysvedceni.png");
+                            saveAs(canvas.toDataURL(), filename_str);
                     });
 
                     function saveAs(uri, filename) {

@@ -43,7 +43,7 @@
             <h1>Vysvědčení</h1>
             <form>
                 <div class="form-group">
-                    <label for="geo-input">Paste your input here:</label>
+                    <label for="geo-input">Paste your Example log from the Checker here <BR> Vlož celý Example log z Checkeru sem:</label>
                     <textarea name="Input" id="geo-input" class="form-control" cols="30" rows="10"></textarea>
                 </div>
                 <button type="button" id="geo-submit" class="btn btn-primary">Submit</button>
@@ -99,16 +99,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <div style="margin: auto; width: 60%;"><span >Vydali VeselíMimoni, v Praze, dne </span><span id="date"></span></div>
+                <div style="margin: auto; width: 70%;"><span >Vydali VeselíMimoni, v Praze, dne </span><span id="date"></span></div>
             </div>
         </div>
         
         <!-- <script src="script.js" async defer></script> -->
         <script>
             let input_str = ""
-            let month_names_array =["Ledna","Února","Března","Dubna",
-                            "Května","Června","Července","Srpna",
-                            "Září", "Října","Listopadu","Prosince"];
+            let month_names_array =["ledna","února","března","dubna",
+                            "května","června","července","srpna",
+                            "září", "října","listopadu","prosince"];
 
             document.getElementById("geo-submit").onclick = function () {
                 let container = document.getElementById("output-container");
@@ -127,8 +127,9 @@
                 if (input_str !== "") {
                     const date = new Date();
 
-                    const month_index = date.getMonth() + 1;
+                    let month_index = date.getMonth();
                     const month_name = month_names_array[month_index];
+                    month_index += 1;
                     const year = date.getFullYear();
                     const day = date.getDate();
 
